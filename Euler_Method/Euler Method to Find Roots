@@ -1,0 +1,38 @@
+%% Euler
+
+pi_approx1=0;
+%pi approx
+error1 = 0.1*10^-6;
+%to calculate the error
+i=1;
+N=100;
+%max number of N
+
+while i <= 100
+
+    pi_approx1 = pi_approx1 + (6/i^2);
+    %This is the Euler equation for pi aprrox
+
+    error1 = abs((pi-sqrt(pi_approx1))./pi);
+    %for calculating the error
+    i=i+1;
+    %the i value will increment by 1 each time
+    Eplot(i)=sqrt(error1);
+    Eplot2(i)=i;
+    %the two lines to graph the i value (or N) as well as the error
+end
+
+plot(Eplot2,Eplot,'--')
+hold on
+plot(Lplot2, Lplot)
+xlabel 'N', ylabel 'Error'
+legend({'Euler','Liebniz'})
+grid on
+
+Pi_approx_Euler=sqrt(pi_approx1)
+Error_Euler=error1.*100
+
+
+
+
+
