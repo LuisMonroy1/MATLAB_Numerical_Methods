@@ -1,0 +1,59 @@
+% Luis Mornoy
+% VOLUME OF TANK
+% 9/15/2022
+
+clc,clear, close all
+
+%Value fot the desired height
+hm=2.8;
+r=0.6;
+%To make h a symbolic variable
+syms h;
+
+
+
+%Volume of the Sphere
+Vsp=(pi).*(h.^2.*(r-(h./3)));
+%Volume of the cylinder
+hcy=1.4;
+Vcy=(pi).*(r.^2.*(h-(r./3)));
+hco=0.8;
+%Volume of the Cone
+Vco=((pi).*(r.^2).*(h-(r./3)));
+
+
+if (hm<=0.6)
+    hp=0:0.01:0.6;
+    P1=plot (hp,subs(Vsp,hp));
+    hold on
+    disp (Vsp);
+end
+
+if (hm>0.6) && (hm<=2)
+    hp=0:0.01:0.6;
+    P1=plot (hp,subs(Vsp,hp));
+    hold on
+    hp=0.6:0.01:2;
+    P2=plot (hp,subs(Vcy,hp));
+    hold on
+    disp (Vsp+Vcy);
+end
+
+if (hm>0.6) && (hm>2) && (hm<=2.8)
+    hp=0:0.01:0.6;
+    P1=plot (hp,subs(Vsp,hp));
+    hold on
+    hp=0.6:0.01:2;
+    P2=plot (hp,subs(Vcy,hp));
+    hold on
+    hp=2:0.01:2.8;
+    P3=plot (hp,subs(Vco,hp));
+    hold on
+    disp (Vsp+Vcy+Vco);
+end
+
+title('Volume of fuel vs Height');
+xlabel('Height'),ylabel('Volume');
+grid on
+grid minor
+legend([P1 P2 P3],{'Volume-Sphere','Volume-Cylinder','Volume-Cone'})
