@@ -1,0 +1,41 @@
+% Luis Monroy
+% Numerical Methods
+% Open Methods
+% Polynomial Division Template
+
+function [q,r] = Polynomial_Division_Template(b,a)
+% Here we create the function fandle named "Polynomial_Division_Template"
+
+n = length (b)-1; 
+m = length (a) -1;
+% Now we assign the variables n and m the length of a and b (which are our parameters)
+
+if m > n 
+    % If statement for when m is greater than n, then no quotient and n is the remainder
+   q=0; 
+   r = b;
+    return; 
+end
+
+a = [a,zeros(1, n-m)];
+q = 0;
+
+% Now we need to obtain the quotient and remainder by doing the division
+for k= 1:n+1
+    % for loop that runs from 1 to n+1
+    if k < n-m+2
+        q(k)=(b(k)-[q(1:k-1)]*[a(k:-1:2)].')/a(1);
+        % This is the equation if k is bigger than n-m+2
+    else
+        r(k-(n-m+1))=b(k)-[q(1:n-m+1)]*[a(k: -1:k-n+m)].';
+        % This is the equation if k is less than n-m+2
+    end 
+    % For if statement
+end 
+%For for loop
+
+end 
+%For the function
+
+
+
