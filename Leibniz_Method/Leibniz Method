@@ -1,0 +1,32 @@
+%Luis Monroy
+%9/1/2022
+%NUMERICAL METHODS 
+
+
+%% Leibniz
+clc,clear
+
+k=0;
+%k will start at 0
+pi_approx=0;
+%first calc of pi approx
+error = abs(pi_approx - pi);
+%to calculate the error
+
+while k <= 100
+
+    pi_approx = pi_approx + ((8)./((4.*k+1).*(4.*k+3)));
+    %This is the Leibniz equation for pi aprrox
+
+    error = abs((pi-pi_approx)./(pi));
+    %for calculating the error
+    k=k+1;
+    %the k value will increment by 1 each time
+    Lplot(k)=error;
+    Lplot2(k)=k;
+    %the two lines to graph the k value as well as the error
+end
+
+%plot(Lplot2, Lplot);
+Pi_approx_Leibniz=pi_approx
+Error_Liebniz=error*100
