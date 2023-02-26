@@ -1,0 +1,63 @@
+%Luis Monroy
+%Problem 5.20
+%Perform the same computation as in Prob. 5.19, but for the
+%frustrum of a cone, as depicted in Fig. P5.20. Employ the following
+%values for your computation: r1 5 0.5 m, r2 5 1 m, h 5 1 m,  f 5
+%frustrum density 5 200 kg/m3, and  w 5 water density 5 1000 kg/m3.
+%Note that the volume of a frustrum is given by
+%V=(pi*h/3)*(r1^2+r2^2+r1*r2);
+
+clc,clear,close all;
+% MATLAB Code to find h1 using Bisection Method
+% Given values of constants
+r1=0.5;
+r2=1;
+h=1;
+rhof=200;
+rhow=1000;
+% Here buoyancy force is equal to weight of frustum
+% rhof*V*g == rhow*(Vdisplaced)*g
+% Vdisplaced =(rhof*V/rhow);
+V=(pi*h/3)*(r1^2+r2^2+r1*r2);
+Vdisp=(rhof/rhow)*V;
+% here h1=x
+f=@(x) (pi*(h-x)/3)*((r1+(r2-r1)*(x/h))^2+r2^2+(r1+(r2-r1)*(x/h))*r2)-Vdisp;
+
+xl=0;
+xu=h;
+% Tolerance used
+tol=1e-3;
+
+if f(xu)*f(xl)<0
+else
+fprintf('The guess is incorrect! Enter new guesses\n');
+xl=input('Enter the first value of guess interval:\n') ;
+xu=input('Enter the end value of guess interval:\n');
+end
+% using bisection method
+for i=2:1000
+xr=(xu+xl)/2;
+if f(xu)*f(xr)<0
+xl=xr;
+else
+xu=xr;
+end
+
+if f(xl)*f(xr)<0
+xu=xr;
+else
+xl=xr;
+end
+
+xnew(1)=0;
+xnew(i)=xr;
+if abs((xnew(i)-xnew(i-1))/xnew(i))<tol,break,end
+fprintf('iteration number = %0.2d, x value is = %0.5f\n',i-1,xr);
+end
+fprintf('\nValue of h1 using Bisection Method is = %0.5f\n',xnew(end-1));
+
+% Verification Using fzero
+% solution using matlab function
+options = optimset('TolX',1e-3);
+x_fzero=fzero(@(x) f(x),[xl;xu],options);
+fprintf('Value of h1 using fzero function is = %0.5f\n',x_fzero);
