@@ -1,0 +1,56 @@
+% Luis Monroy
+% Open Methods
+% Function Handle for Polynomial Divisiom
+clear,clc,close all
+
+% b(x) = b0x^n+b1x^(n-1)+b2x^(n-2)+...+b(n-1)x+b(n)
+% a(x) = a0x^m+a1x^(m-1)+a2x^(m-2)+...+a(m-1)x+a(m)
+
+% Example 1
+% When m-n < m
+% b(x) = 4x^8+5x^7-x^6+7x^5-6x^4+x^3+2x^2-3x+7
+% a(x) = 3x^5+x^4-7x^3+5x^2-4x+2
+disp('When the values of m - n < m')
+
+%For the a and b parameters
+b=[4 5 -1 7 -6 1 2 -3 7];
+a=[3 1 -7 5 -4 2];
+
+%To call the function "Polynomial_Division_Template"
+[q,r] = Polynomial_Division_Template (b,a);
+% To display q and r
+disp('This is the Quotient' ), disp(q) 
+disp('This is the Remainder'), disp(r)
+
+
+% We can also confirm the values by using deconv function
+disp ('Double check using the fucntion of Matlab (deconv)')
+[q,r] = deconv(b,a);
+% To display q and r of the deconv
+disp('This is the Quotient' ), disp(q) 
+disp('This is the Remainder'), disp(r)
+
+
+% When m-n > m
+% b(x) = 4x^8+5x^7-x^6+7x^5-6x^4+x^3+2x^2-3x+7
+% a(x) = 3x^3+x^2-7x+5
+disp('When the values of m-n > m')
+
+%For the a and b parameters
+b = [4 5 -1 7 -6 1 2 -3 7];
+a = [3 1 -7 5];
+
+%To call the function "Polynomial_Division_Template"
+[q,r] = Polynomial_Division_Template (b,a);
+% To display q and r
+disp('This is the Quotient' ), disp(q) 
+disp('This is the Remainder'), disp(r)
+
+
+% We can also confirm the values by using deconv function
+disp ('Double check using the fucntion of Matlab (deconv)')
+[q,r] = deconv(b,a);
+% To display q and r of the deconv
+disp('This is the Quotient' ), disp(q) 
+disp('This is the Remainder'), disp(r)
+
