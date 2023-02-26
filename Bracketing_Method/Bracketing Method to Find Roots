@@ -1,0 +1,20 @@
+% Luis Mornoy
+% ROOTS OF EQUATIONS
+% 9/20/2022
+
+%Equation from problem 5.2
+%f(x)=4.*x.^3-6.*x.^2+7.*x-2.3;
+
+%% Bracketing Method
+clc,clear, close all
+x=0:0.01:1;
+%Equatrion for f(x)
+fx=(4.*x.^3-6.*x.^2+7.*x-2.3);
+
+plot(x,fx)
+
+title('Roots of Equation');
+xlabel('x-axis'),ylabel('y-axis');
+grid on
+grid minor
+legend({'Equation f(x)'});
