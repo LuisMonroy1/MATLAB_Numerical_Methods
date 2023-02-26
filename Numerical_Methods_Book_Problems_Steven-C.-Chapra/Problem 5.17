@@ -1,0 +1,45 @@
+% Luis Monroy
+% Problem 5.17
+% If R=3 m, to what depth must the tank be fi lled so that it holds 30 m^3? 
+% Use three iterations of the false-position method to determine your answer. 
+% Determine the approximate relative error after each iteration. 
+% Employ initial guesses of 0 and R.
+
+clc, clear, close all
+
+R = 4; V = 40;
+a=0; b=R; % initial guesses from graph f(x) vs x
+f=@(h) V - (pi/3)*h^2*(3*R - h); % f is a function handler
+c=b-f(b)*((a-b)/(f(a)-f(b))); % function to find new root estimate
+ainit=a; binit=b; %keep initial guesses as backup for reference
+er=abs(b-a);
+ii=1; % iteration counter
+ervect=zeros(1,ii); %creates a vector to store error values for each
+%iteration
+iivect=zeros(1,ii); %creates a vector to store iteration number at a
+
+while ii<4
+
+if f(a)*f(c)>0 % c substitutes a or b
+a=c;
+elseif f(a)*f(c)<0
+b=c;
+else
+root=c;
+break
+end
+c=(a+b)/2;
+er=abs(b-a);
+ervect(ii)=er; %stores current error value
+iivect(ii)=ii; %stores current iteration value
+ii=ii+1;
+end
+
+%%find the closest root
+if abs(f(b))<abs(f(c)) && abs(f(b))<abs(f(a))
+root=b;
+elseif abs(f(c))<abs(f(a)) && abs(f(c))<abs(f(b))
+root=c;
+else
+root=a
+end
