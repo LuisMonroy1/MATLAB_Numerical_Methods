@@ -1,0 +1,39 @@
+%Luis Monroy
+%Open Methods
+%Bairstow Method to find roots of Polynomials
+
+% fx=x^5-3.5*x^4+2.75*x^3+2.125*x^2-3.875*x+1.25 %EQUATION FORMAT
+%
+clear,clc,close all
+
+a=[1.25 -3.875 2.125 2.75 -3,5 1];
+n=numel(a);
+b=length(n);
+c=length(n);
+itermax=100;
+iter=1;
+es=0.01;
+ear=100;
+eas=100;
+r=-1;
+s=-1;
+while (ear>=es && eas>=es && iter<=itermax)
+    b(n)=a(n);
+    b(n-1)=a(n-1)+r*b(n);
+    for i=(n-2):-1:1
+        b(i)=a(i)+r*b(i+1)+s*b(i+2);
+    end
+    c(n)=b(n);
+    c(n-1)=b(n-1)+r*c(n);
+    for j=(n-2):-1:2
+        c(j)=b(j)+r*c(j+1)+s*c(j+2);
+    end
+    delS=(-b(1)*(c(2)/c(3))*b(2))/(c(3)-(c(2)/c(3))*c(4));
+    delR=(-b(2)-c(4)*delS)/c(3);
+    s=s+delS;
+    r=r+delR;
+    ear=abs(delR/r);
+    iter=iter+1;
+end
+xr1=(r+sqrt(r^2+4*s))/2;
+xr2=(r-sqrt(r^2+4*s))/2;
