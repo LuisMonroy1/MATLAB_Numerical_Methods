@@ -1,0 +1,85 @@
+function[root] = brents2(func,a,b,es)
+%
+% Brent,s method, combining bisection and quadratic interpolation
+
+% input:
+% func = name of function
+% a,b = limits of the interval containing the root
+% es = specified error
+
+% output:
+% root = real root (root = NaN if did not converge).
+
+%
+% Bisection
+x1 = a;
+f1 = feval(func,x1);
+if (f1 == 0)
+    root = x1;
+    return
+end
+x2 = b;
+f2 = feval(func,x2);
+if (f2 == 0)
+    root = x2;
+    return
+end
+if (f1*f2 > 0)
+    error('Root is not bracketed in (a,b)')
+end
+x3 = 0.5*(a + b);
+itermax=30;
+iter=0;
+ea=100;
+% Iterative loop.
+while iter<itermax
+    iter=iter+1;
+    f3 = feval(func,x3);
+    if abs(ea) < es
+        %print the total number of iterations
+        totaliter=iter-1
+        root = x3;
+        plot(iterp,eap)
+        grid on
+        grid minor
+        xlabel('Iteration')
+        ylabel('Error')
+        title('Graph of Brent Error ea v.s. Iteration number ')
+        return
+    end
+    % Reduce the bracket (a,b)
+    if (f1*f3 < 0)
+        b = x3;
+    else
+        a = x3;
+    end
+    %
+    % Quadratic interpolation
+    %
+    den = (f2 - f1)*(f3 - f1)*(f2 - f3);
+    num = x3*(f1 - f2)*(f2 - f3 + f1)...
+        + f2*x1*(f2 - f3) + f1*x2*(f3 - f1);
+   
+    dx = f3*num/den;
+    x = x3 + dx;
+    % If interpolation goes out of bracket, use bisection.
+    if ((b - x)*(x - a) < 0)
+        dx = 0.5*(b - a);
+        x = a + dx;
+    end
+    % Let x3 <-- x & choose new x1, x2 so that x1 < x3 < x2.
+    if x < x3
+        x2 = x3;
+        f2 = f3;
+    else
+        x1 = x3;
+        f1 = f3;
+    end
+    x3 = x;
+    ea=dx/x;
+    eap(iter)=abs(ea);
+    iterp(iter)=iter;
+   
+end
+
+root = NaN;
