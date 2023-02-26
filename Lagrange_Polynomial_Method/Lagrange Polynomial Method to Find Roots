@@ -1,0 +1,30 @@
+%Luis Monroy
+%Open Methods - Lagrange Polynomial
+
+clc,clear,close all
+
+syms y;
+yi=7; %yi
+yii=1; %yi-1
+yiii=4; %yi-2
+xi=5; %xi
+xii=3; %xi-1
+xiii=2; %xi-2
+pt1=(((y-yii).*(y-yi))./((yiii-yii).*(yiii-yi))).*(xiii); 
+pt2=(((y-yiii).*(y-yi))./((yii-yiii).*(yii-yi))).*(xii);
+pt3=(((y-yiii).*(y-yii))./((yi-yiii).*(yi-yii))).*(xi);
+
+gy=pt1+pt2+pt3; %g(y) function of y
+gy2=simplify(gy) %THIS IS THE SIMPLYFIED EQ (g(y)=ay^2+by+c)
+
+y=-5:0.1:10; %The range for the y-axis
+g=(2.*y.^2)./9 - (13.*y)./9 + 38./9; %  WE GET THIS FROM GY2
+plot(g,y); %Graph
+grid on
+grid minor
+
+%TO DETERMINE THE ROOT
+pt11=((yi-yii)./((yiii-yii).*(yiii-yi))).*(xiii);
+pt22=((yi-yiii)./((yii-yiii).*(yii-yi))).*(xii);
+pt33=((yiii-yii)./((yi-yiii).*(yi-yii))).*(xi);
+gy22=pt11+pt22+pt33 %g(y) function of y
