@@ -1,0 +1,18 @@
+%----------Boole's Rule----------%
+clc,clear
+disp('RUNNING BOOLES RULE...')
+f = @(x) sqrt(x);
+a = 1; % Lower Limit
+b = 6; % Upper Limit
+n = 6; % No. of sub-divisions
+h = (b-a)/n;
+s = 7*(f(a)+f(b));
+for i=2:2:n-2
+    s=s+12*f(a+i*h);
+end
+for i=1:2:n-1
+    s=s+32*f(a+i*h);
+end
+I = (2*h*s)/45;
+disp(I)
+disp('END OF CODE.')
