@@ -1,0 +1,57 @@
+clc,clear
+x = -1:0.01:5;
+xl = -1;
+xu = 0;
+fx = -2.75*x.^(3)+18*x.^(2)-21*x-12;
+plot(x,fx,'k--')
+grid on
+title('Question 5.4')
+xlabel('X')
+ylabel('FX')
+fxm = [-2.75 18 -21 -12];
+a = roots(fxm);
+disp('These are the roots for the function fx starting with x3:')
+disp(a) % Starting with x3 all the way to x1.
+% Root #1 is approximately x1 = -0.4147.
+% Root #2 is approximately x2 = 2.22.
+% Root #3 is approximately x3 = 4.74.
+fxl = -2.75*xl.^(3)+18*xl.^(2)-21*xl-12;
+fxu = -2.75*xu.^(3)+18*xu.^(2)-21*xu-12;
+xr = (xl + xu)/2;
+iter = 0;
+imax = 50;
+es = 0.01;
+ea = 100;
+s = 1;
+%%False Position Method 
+while(ea>=es && iter<=imax)
+    fxu2=5*xu.^3-5*xu.^2+6*xu-2;
+    fxl2=5*xl.^3-5*xl.^2+6*xl-2;
+    fxr2=5*xr.^3-5*xr.^2+6*xr-2;
+    I=fxl2*fxr2;
+    if (I<0)
+        xu=xr;
+        iu=0;
+        il=il+1;
+        if(il>=2)
+            fxl=fxl/2;
+        end
+    end
+    if(I>0)
+        xl=xr;
+        il=0;
+        iu=iu+1;
+        if(iu>=2)
+            fxu2=fxu2/2;
+        end
+    end
+    xrold2=xr;
+    xr=xu-fxu2*((xl-xu)/(fxl2-fxu2));
+    ea=abs((xr-xrold)/xr);
+    eas(s)=ea;
+    iter=iter+1;
+    iters(s)=iter;
+    s=s+1;
+end
+disp('This is the value of the root with False Position Method:')
+disp(xr)
