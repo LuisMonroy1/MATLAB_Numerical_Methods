@@ -1,0 +1,42 @@
+%Luis Monroy
+%8/30/2022
+%NUMERTICAL METHODs
+%TaylorSeries
+
+clc,clear
+format long
+
+x=(0.3.*pi);
+maxit=30;
+Si=0;
+sf=8;
+p=2-sf;
+es=0.5.*10^p;
+iter=0;
+ea=100;
+
+Es=5.*(10.^(-7));
+Et=100;
+k=0;
+
+while ea > es && iter<= maxit
+    
+Siold=Si;
+    N=x.^(2.*iter+1);
+    D=2.*iter+1;
+    Si=Si+((-1).^iter).*N/(factorial(D));
+    iter=iter+1;
+    ea=abs((Si-Siold)/Si)+100;
+    eaplot(iter)=ea;
+    iterplot(iter)=iter;
+
+    
+end
+
+plot(eaplot, iterplot);
+grid on
+grid minor
+Si
+iter
+ea
+Sinu=Si;
