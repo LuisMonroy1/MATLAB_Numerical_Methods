@@ -1,0 +1,60 @@
+%% Bisection Method - Modified False Position
+clc,clear, close all
+%Equatrion for f(x)
+x=0:0.01:1;
+y=(4.*x.^3-6.*x.^2+7.*x-2.3);
+%For upper bound
+xu=2;
+%For lower bound
+xl=0;
+iter=0;
+es=.001;
+ea=100;
+imax=10000;
+eas=length(imax);
+iters=length(imax);
+yu=xu.^10-1;
+yl=xl.^10-1;
+xr=xu-yu*((xl-xu)/(yl-yu));
+il=0;
+iu=0;
+s=1;
+
+while (ea > es && iter<=imax)
+    %keep running untill the error is no longer >0.001
+    yu=xu.^10-1;
+    yl=xl.^10-1;
+    yr=xr.^10-1;
+    I=yl*yr;
+
+    if (I < 0)
+        xu=xr;
+        il=il+1;
+        if (il>=2)
+            yl=yl/2;
+        end
+    end    
+    if (I > 0)
+        xl=xr;
+        iu=iu+1;
+        if (iu>=2)
+            yu=yu/2;
+        end
+    end
+    xrold=xr;
+    xr=xu-yu.*(xl-xu)./(yl-yu);
+    %equation to determine roots (BISECTION) 
+    ea=abs ((xr-xrold)/xr);
+    eas(s)=ea;
+    iter=iter+1;
+    iters(s)=iter;
+    s=s+1;
+end
+plot(iters,eas);
+grid on
+grid minor
+xlabel ('x')
+ylabel('f(x)')
+title('Bisection Method - Modified False Position')
+disp ('xr=');
+disp (xr);
