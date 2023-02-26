@@ -1,0 +1,23 @@
+%Luis Monroy
+%11/17/2022
+%Gauss Quadrature
+
+clc,clear,close all
+
+a=0; %Lower integration limit
+b=30; %Upper integration limit
+H=30; %Upper integration limit
+n=6; %number of gauss points desired
+
+c0=1;
+c1=1;
+x0=0.5;
+x1=-0.5;
+
+funct = @(z) 200.*(z./(5+z)).*exp(-2.*z./H);
+I = Gaussian_quadrature(funct,a,b,n) % To call the function
+
+x=(((b+a).*(b-a)).*xd)./2;
+dx=((b-a)./2).*dxd;
+
+I=c0.*(x0)+c1.*(x1);
