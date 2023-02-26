@@ -1,0 +1,40 @@
+% Luis Mornoy
+% ROOTS OF EQUATIONS - OPEN METHODS
+% 9/29/2022
+
+%Newton Raphson Method
+%Problem 6.3
+%Simple Fixed Point
+clc,clear,close all
+x=-3:0.01:3;
+%For graph (starting from -3 to 3 on the x-axis)
+y=-x.^2+1.8.*x+2.5;
+
+plot(x,y)
+title('Open Method');
+xlabel('x-axis'),ylabel('y-axis');
+grid on
+grid minor
+
+xold=5;
+%Starting point
+ea=100;
+es=0.0001;
+iter=0;
+itermax=100;
+
+while (ea>=es && iter<=itermax)
+    fx=-xold.^2+1.8.*xold+2.5;
+    fxp=-2.*xold+1.8;
+    xn=xold-(fx/fxp);
+    if (fxp == 0)
+        disp('Error')
+        break
+    end
+    %If statement so the program ends if it divides by 0
+
+    ea=abs((xn-xold)/xn);
+    iter=iter+1;
+    xold=xn;
+end
+xn
