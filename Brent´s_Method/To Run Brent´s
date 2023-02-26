@@ -1,0 +1,4 @@
+% Function Handle for Brents
+clear,clc
+func = @(x) (x.^3+5*x.^2-17*x-21);
+[root]=brents2(func,-10,-5,0.0001)
