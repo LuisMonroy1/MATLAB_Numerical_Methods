@@ -1,0 +1,15 @@
+% Luis Monroy
+% Open Methods
+% Bairstow Method
+
+clear,clc,close all
+
+% fx=x^5-3.5*x^4+2.75*x^3+2.125*x^2-3.875*x+1.25 %EQUATION FORMAT
+
+Coeff=[1.25 -3.875 2.125 2.75 -3.5 1]; %Input the coefficients of your formula in vector form (from x^1 to x^5)
+initialGuess=-1; %Initial guess
+MaxApproxError=1e-9; %Max accepted Error
+
+[Root]=Bairstow(Coeff,initialGuess,MaxApproxError); %Calling the Bairstow Function
+
+disp('These are the vector of all the roots of the polynomial' ), disp(Root) 
