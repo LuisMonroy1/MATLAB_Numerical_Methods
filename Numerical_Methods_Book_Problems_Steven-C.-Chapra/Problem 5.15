@@ -1,0 +1,64 @@
+%Luis Monroy
+%Problem 5.15
+%where g = 9.81 m/s2, H = initial head (m), L = pipe length (m),
+%and t = elapsed time (s). Determine the head needed to achieve
+%y = 5 m/s in 2.5 s for a 4-m-long pipe (a) graphically, (b) by
+%bisection, and (c) with false position. Employ initial guesses of
+%xl = 0 and xu = 2 m with a stopping criterion of es = 1%. Check
+%you results.
+
+%% (a)from the Graphical Method :
+clc,clear,close all
+H=0:0.1:2;
+y = sqrt(19.62*H).*tanh(sqrt(19.62*H)*2.5/8);
+plot(H,y)
+grid on
+grid minor
+xlabel ('X-axis')
+ylabel('f(x)')
+
+%% (b) Bisection Method :
+function p = bisection(f,a,b)
+
+if f(a)*f(b)>0
+disp('Wrong choice')
+else
+p = (a + b)/2;
+err = abs(f(p));
+while err > 1e-7
+if f(a)*f(p)<0
+b = p;
+else
+a = p;
+end
+p = (a + b)/2;
+err = abs(f(p));
+end
+end
+end
+% f = @(x) sqrt(19.6*x)*tanh(sqrt(19.6*x)*2.5/8)-5;
+% bisection(f,0,2)
+
+%ans should be 1.4
+
+
+%% (c) False Position Method :
+
+function root = regulafalsi(f,a,b)
+i = 0;
+g = 1;
+tolerance = 1*10^-4;
+while(g > tolerance)
+i = i + 1;
+c = a - ((f(a)*(b-a))/(f(b) - f(a)));
+if(f(c)*f(a) > 0)
+b = c;
+g = f(b);
+root = b;
+else
+a = c;
+g = f(a);
+root = a;
+end
+end
+end
