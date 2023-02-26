@@ -1,0 +1,90 @@
+%Luis Monroy
+%Open Methods - Brent's Method
+
+clc,clear,close all
+
+fx=@(x)(x.^3+5.*x^2-17.*x-21); %The function given % CAN BE CHANGED
+x1=0; %a % CAN BE CHANGED
+x2=5; %b % CAN BE CHANGED
+x3=x1+x2/2; % x3=a+b/2 (Bisection)
+f1=-21; %f(0)
+f2=144; %f(1)
+f3=-16.625; %f(2)
+
+%Brent's Equation
+dx=((x3.*(f1-f2).*(f2-f3+f1)+f2.*x1.*(f2-f3)+f1.*x2.*(f3-f1))./((f2-f1).*(f3-f1).*(f2-f3))).*(f3);
+disp("The result of Brent's Equation is: "+dx)
+
+xn=x3+dx; %The new x
+disp("The new x is: "+ xn); %This is The root 
+
+%% Brent's
+clc, clear, close all
+% Calling Function 
+f = @(x)(x.^3+5*x.^2-17*x-21); %CAN BE CHANGED
+% Calling xL,xU,ystop
+a=0; b=5; err=1e-3; % CAN BE CHANGED
+% Testing Root is bracketed [xL
+if f(a)*f(b) >=0
+    opts = struct('WindowStyle','modal','Interpreter','tex');
+    F = errordlg('The Root out Bracket,Increase xL and xU', 'Rootd are not Bracketed',opts);
+end
+%-----------------------------------
+% Swaping xL and xU contents
+if abs(f(a)) < abs(f(b))
+    L=a; a=b; b=L;
+end
+c=a;
+Mflag=1;
+%----------------------------------
+% Main Loop
+delta = err; i=0;
+while abs(b-a) >= err
+    i=i+1;
+    if f(a) ~= f(c) && f(b) ~= f(c)
+        % Inverse Quadratic Interpolation
+        s = a*f(b)*f(c)/((f(a)-f(b))*(f(a)-f(c)))+b*f(a)*f(c)/((f(b)-f(a))*(f(b)-f(c)))+c*f(a)*f(b)/((f(c)-f(a))*(f(c)-f(b))); 
+    else 
+        % Secant Method
+        s = b -f(b)*(b-a)/(f(b)-f(a)); 
+    end
+    if s <= (3*a+b)/4 || s >= b || ...
+            (Mflag==1 && abs(s-b) >= abs(b-c)/2) || (Mflag==0 && abs(s-b) >= abs(c-d)/2) || (Mflag==1 && abs(b-c) < abs(delta))  || (Mflag==0 && abs(c-d) < abs(delta))
+        % Bisection Method
+        s= (a+b)/2;
+        Mflag=1;
+    else 
+        Mflag=0;
+    end
+    %-----------------
+    % Calculate f(s)
+    d=c; c=b;
+    if f(a)*f(s)<0
+        b=s;
+    else 
+        a=s;
+    end
+    %---------------
+    % Swaping a and B contents
+    if abs(f(a)) < abs(f(b)) 
+            L=a; a=b; b=L;
+    end
+    ss(i,1) = s; % S History
+    dd(i,1) = d; % d History
+    ii(i,1) = i; % i History
+end
+%-------------
+% Display Result
+plot(1:i,ss); 
+grid on
+title('Brent Dekker Method'); 
+xlabel(' Number of Iterations'); 
+ylabel('Root Convergence');
+
+disp(['Root X =' num2str(s)])
+disp(['#Iterations = ' num2str(i)])
+disp(['Acurrancy f(X) =' num2str(f(s))])
+
+
+Iterations = ii; Root_Values_X = ss; Fx = f(ss);
+Result_Table = table(Iterations,Root_Values_X,Fx)
